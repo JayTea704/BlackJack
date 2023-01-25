@@ -1,3 +1,8 @@
+//Programmer: John Bedlington
+//Date: 1/23/2023
+//Class: CS &145
+//Assignment: Lab 4
+//This program will make a Blackjack game where the user chooses to bet a portion of their money and then play a hand of blackjack.
 package blackjackpackage;
 
 import java.awt.*;
@@ -15,6 +20,8 @@ public class BlackJack {
         playingDeck.createFullDeck();
         //shuffle deck
         playingDeck.shuffle();
+        //convert deck from arraylist to stack
+        //playingDeck.convertToStack();
         //Create a deck for the player
         Deck playerDeck = new Deck();
         //Create a deck for the Dealer
@@ -26,16 +33,15 @@ public class BlackJack {
 
         //Game Loop
         while(playerMoney > 0) {
-            //Game on!
             //Take bet
             System.out.println("you have $" + playerMoney + ", how much would you like to bet?");
             double playerBet = userInput.nextDouble();
-            if(playerBet > playerMoney){
+            if(playerBet > playerMoney){ //checks if player has sufficient funds
                 System.out.println("You can't bet money you don't have.");
                 break;
             }
 
-            boolean endRound = false;
+            boolean endRound = false; //check to see if game has ended
 
             //Start Dealing
             //Player gets 2 cards

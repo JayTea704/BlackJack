@@ -2,6 +2,7 @@ package blackjackpackage;
 
 import java.util.ArrayList;
 import java.util.Random;
+// import java.util.Stack;
 
 public class Deck {
 
@@ -12,7 +13,7 @@ public class Deck {
         this.cards = new ArrayList<Card>();
     }
 
-    public void createFullDeck(){
+    public void createFullDeck(){ //makes deck of cards
         //Generates Cards
         for(Suit cardSuit : Suit.values()){
             for(Value cardValue : Value.values()) {
@@ -22,8 +23,8 @@ public class Deck {
         }
     }
 
-    public void shuffle(){
-        ArrayList<Card> tmpDeck = new ArrayList<Card>();
+    public void shuffle(){ //shuffles deck
+        ArrayList<Card> tempDeck = new ArrayList<Card>();
         //use Random
         Random random = new Random();
         int randomCardIndex = 0;
@@ -31,14 +32,23 @@ public class Deck {
         for(int i = 0; i < originalSize; i++){
             //Generate Random Index
             randomCardIndex = random.nextInt((this.cards.size()-1) + 1);
-            tmpDeck.add(this.cards.get(randomCardIndex));
+            tempDeck.add(this.cards.get(randomCardIndex));
             //Remove from original deck
             this.cards.remove(randomCardIndex);
         }
 
-        this.cards = tmpDeck;
+        this.cards = tempDeck;
     }
+   /*
+   public void convertToStack(){ //converts arraylist to Stack
+    Stack<String> st = new Stack<>();
 
+        st.addAll(tmpDeck)
+} //end fo convertStack method
+
+    */
+
+    //converts cards to strings
     public String toString(){
         String cardListOutput = "";
         int i = 0;
@@ -49,14 +59,17 @@ public class Deck {
 
     }
 
+    //removes card from deck
     public void removeCard(int i){
         this.cards.remove(i);
     }
 
+    //gets cards from playing deck
     public Card getCard(int i){
         return this.cards.get(i);
     }
 
+    //adds cards to player or dealer hand
     public void addCard(Card addCard){
         this.cards.add(addCard);
     }
@@ -67,10 +80,12 @@ public class Deck {
         comingFrom.removeCard(0);
     }
 
+    //checks the size of deck
     public int deckSize(){
         return this.cards.size();
     }
 
+    //moves used cards back to deck after end of hand
     public void moveBackToDeck(Deck moveto){
         int thisDeckSize = this.cards.size();
 
@@ -91,7 +106,7 @@ public class Deck {
         int aces = 0;
 
         for(Card aCard : this.cards){
-            switch(aCard.getValue()){
+            switch(aCard.getValue()){ //assigns values to each card
                 case TWO: totalValue += 2; break;
                 case THREE: totalValue += 3; break;
                 case FOUR: totalValue += 4; break;
@@ -104,12 +119,12 @@ public class Deck {
                 case JACK: totalValue += 10; break;
                 case QUEEN: totalValue += 10; break;
                 case KING: totalValue += 10; break;
-                case ACE: totalValue += 1; break;
+                case ACE: aces += 1; break;
             } //end of switch case
 
         } // end of for loop
 
-        for(int i = 0; i < aces; i++){
+        for(int i = 0; i < aces; i++){ //checks if aces should be valued at 1 or 11
 
             if(totalValue > 10){
                 totalValue += 1;
@@ -120,7 +135,7 @@ public class Deck {
 
         } //end of for loop
 
-        return totalValue;
+        return totalValue; //returns point value of the hand
 
     } //end of card value method
 
